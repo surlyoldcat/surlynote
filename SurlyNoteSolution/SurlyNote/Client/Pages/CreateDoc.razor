@@ -1,0 +1,35 @@
+﻿@page "/createdoc"
+@inject SurlyNoteApiClient client
+
+    <h3>New Note</h3>
+    <EditForm Model="@doc" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <label>
+            Title: <InputText id="title" @bind-Value="@doc.Title" />
+        </label>
+        <label>
+            Tags: <InputText id="tags" @bind-Value="@doc.TagString" />
+        </label>
+        <label>
+            Body: <InputTextArea id="body" @bind-Value="@doc.Body" />
+        </label>
+        
+
+        <button type="submit">Save</button>
+    </EditForm>
+
+@code {
+
+    private ValidatableSurlyDoc doc = new ValidatableSurlyDoc();
+
+   
+
+
+    private void HandleValidSubmit()
+    {
+
+    }
+
+
+}

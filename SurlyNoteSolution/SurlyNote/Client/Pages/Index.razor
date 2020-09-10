@@ -1,0 +1,48 @@
+﻿@page "/"
+@inject SurlyNoteApiClient client
+@inject NavigationManager navigation
+<h3>Notes</h3>
+@if (docs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doc in docs)
+            {
+                <tr>
+                    <td>
+                        <a href="editdoc/@doc.Id">@doc.Title</a>
+                        </td>
+                    <td>
+                        @foreach (var tag in doc.Tags)
+                        {
+                            <button class="btn-doctag">@tag</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private DocListItem[] docs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await client.GetNoteList();
+        docs = response.ToArray();
+    }
+
+   
+}

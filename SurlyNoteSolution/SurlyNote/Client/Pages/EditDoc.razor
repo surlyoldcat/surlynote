@@ -1,0 +1,67 @@
+﻿@page "/editdoc/{Id}"
+@inject SurlyNoteApiClient client
+@inject NavigationManager navigation
+
+@if (doc == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h3>Edit @doc.Title</h3>
+    <EditForm Model="@doc" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="txtTitle">Title</label>
+            <InputText id="txtTitle" class="form-control" @bind-Value="@doc.Title" />
+        </div>  
+        <div class="form-group">
+            <label for="txtTags">Tags</label>
+            <InputText id="txtTags" class="form-control" @bind-Value="@doc.TagString" />
+            <small class="form-text text-muted">Tags should be separated by 1 space- no prefix or # needed.</small>
+        </div>
+        <div class="form-group">
+            <label for="txtBody">Body</label>
+            <small class="form-text text-muted">Github-style markdown supported.</small>
+            <InputTextArea id="body" class="form-control" @bind-Value="@doc.Body" />
+        </div>
+        <input type="hidden" id="docId" @bind-value="@doc.Id" />
+        <input type="hidden" id="userId" @bind-value="@doc.UserId" />
+        <input type="hidden" id="lastModified" @bind-value="@doc.LastModified" />
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-outline-secondary" @onclick="HandleCancel">Cancel</button>
+    </EditForm>
+}
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private ValidatableSurlyDoc doc = null;
+
+   
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        SurlyDoc sd = await client.GetNote(Id);
+        doc = sd;
+
+    }
+
+    private async Task HandleCancel()
+    {
+        navigation.NavigateTo("/");
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        doc.LastModified = DateTime.Now;
+        await client.UpdateNote(doc);
+        navigation.NavigateTo("/");
+    }
+
+
+}
