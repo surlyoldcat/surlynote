@@ -1,5 +1,6 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">SurlyNote</a>
+    <small>Hello person</small>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,15 +9,24 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
+            <AccessControl/>
+        </li>
+        <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> Notes
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="createdoc">
-                <span class="oi oi-plus" aria-hidden="true"></span> New Doc
+                <span class="oi oi-plus" aria-hidden="true"></span> New Note
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="tags">
+                <span class="oi oi-plus" aria-hidden="true"></span> Tags
+            </NavLink>
+        </li>
+
     </ul>
 </div>
 

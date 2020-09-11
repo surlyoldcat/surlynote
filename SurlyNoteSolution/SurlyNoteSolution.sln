@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurlyNote.Server", "SurlyNote\Server\SurlyNote.Server.csproj", "{8E48D792-97C1-4E75-BD65-ECE4B9F7206F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurlyNote.Server", "SurlyNote\Server\SurlyNote.Server.csproj", "{8E48D792-97C1-4E75-BD65-ECE4B9F7206F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurlyNote.Client", "SurlyNote\Client\SurlyNote.Client.csproj", "{F0967683-4812-4E12-9CE5-6D160B11C7DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurlyNote.Client", "SurlyNote\Client\SurlyNote.Client.csproj", "{F0967683-4812-4E12-9CE5-6D160B11C7DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurlyNote.Shared", "SurlyNote\Shared\SurlyNote.Shared.csproj", "{999C2615-2841-4EAD-A93F-88999CAD7215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurlyNote.Shared", "SurlyNote\Shared\SurlyNote.Shared.csproj", "{999C2615-2841-4EAD-A93F-88999CAD7215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Web;
+using Serilog;
 
 namespace SurlyNote.Server
 {
@@ -14,36 +14,38 @@ namespace SurlyNote.Server
     {
         public static void Main(string[] args)
         {
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
+
             try
             {
-                logger.Debug("Initializing with NLog");
+                Log.Information("Starting up");
                 CreateHostBuilder(args).Build().Run();
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                //NLog: catch setup errors
-                logger.Error(exception, "Stopped program because of exception");
-                throw;
+                Log.Fatal(ex, "Application startup failed!");
             }
             finally
             {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
+                Log.CloseAndFlush();
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-            .ConfigureLogging(logging =>
-            {
-                logging.ClearProviders();
-                logging.SetMinimumLevel(LogLevel.Trace);
-            })
-            .UseNLog();
+                });
+            //.ConfigureLogging(logging =>
+            //{
+            //    logging.ClearProviders();
+            //    logging.SetMinimumLevel(LogLevel.Trace);
+            //})
+            
     }
 }

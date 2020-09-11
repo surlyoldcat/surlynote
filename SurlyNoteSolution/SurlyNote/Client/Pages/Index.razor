@@ -1,13 +1,27 @@
 ﻿@page "/"
 @inject SurlyNoteApiClient client
 @inject NavigationManager navigation
-<h3>Notes</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-4"><h3>Notes</h3></div>
+        <div class="col-4">
+            <EditForm Model="@search" OnValidSubmit="@SearchSubmitted">
+                <div class="form-group">
+                    <label for="txtSearch">Search:</label>
+                    <InputText id="txtSearch" @bind-Value="@search.SearchText" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
 @if (docs == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+
     <table class="table">
         <thead>
             <tr>
@@ -36,6 +50,8 @@ else
 
 
 @code {
+    private SearchTerm search = new SearchTerm();
+
     private DocListItem[] docs;
 
     protected override async Task OnInitializedAsync()
@@ -44,5 +60,7 @@ else
         docs = response.ToArray();
     }
 
-   
+    private async Task SearchSubmitted()
+    {
+    }
 }
