@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject SurlyNoteApiClient client
 @inject NavigationManager navigation
+@attribute [Authorize]
 <div class="container">
     <div class="row">
         <div class="col-4"><h3>Notes</h3></div>

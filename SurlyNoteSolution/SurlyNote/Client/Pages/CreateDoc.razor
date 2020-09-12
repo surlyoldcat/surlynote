@@ -1,30 +1,30 @@
 ﻿@page "/createdoc"
 @inject NavigationManager navigation
 @inject SurlyNoteApiClient client
+@attribute [Authorize]
+<h3>New Note</h3>
+<EditForm Model="@doc" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="txtTitle">Title</label>
+        <InputText id="txtTitle" class="form-control" @bind-Value="@doc.Title" />
+    </div>
+    <div class="form-group">
+        <label for="txtTags">Tags</label>
+        <InputText id="txtTags" class="form-control" @bind-Value="@doc.TagString" />
+        <small class="form-text text-muted">Tags should be separated by 1 space- no prefix or # needed.</small>
+    </div>
+    <div class="form-group">
+        <label for="txtBody">Body</label>
+        <small class="form-text text-muted">Github-style markdown supported.</small>
+        <InputTextArea id="body" class="form-control" @bind-Value="@doc.Body" />
+    </div>
 
-    <h3>New Note</h3>
-    <EditForm Model="@doc" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <label for="txtTitle">Title</label>
-            <InputText id="txtTitle" class="form-control" @bind-Value="@doc.Title" />
-        </div>
-        <div class="form-group">
-            <label for="txtTags">Tags</label>
-            <InputText id="txtTags" class="form-control" @bind-Value="@doc.TagString" />
-            <small class="form-text text-muted">Tags should be separated by 1 space- no prefix or # needed.</small>
-        </div>
-        <div class="form-group">
-            <label for="txtBody">Body</label>
-            <small class="form-text text-muted">Github-style markdown supported.</small>
-            <InputTextArea id="body" class="form-control" @bind-Value="@doc.Body" />
-        </div>
-        
 
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-outline-secondary" @onclick="GoHome">Cancel</button>
-    </EditForm>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-outline-secondary" @onclick="GoHome">Cancel</button>
+</EditForm>
 
 @code {
 

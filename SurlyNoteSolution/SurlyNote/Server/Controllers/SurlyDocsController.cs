@@ -12,7 +12,7 @@ using SurlyNote.Server.Repository;
 
 namespace SurlyNote.Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SurlyDocsController : ControllerBase
